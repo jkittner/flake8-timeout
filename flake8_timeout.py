@@ -35,6 +35,24 @@ class Visitor(ast.NodeVisitor):
                     break
             else:
                 self.assignments.append((node.lineno, node.col_offset))
+        elif (
+            isinstance(node, ast.Call) and
+            isinstance(node.func, ast.Attribute) and
+            isinstance(node.func.value, ast.Attribute) and
+            isinstance(node.func.value.value, ast.Name) and
+            node.func.value.value.id == 'urllib' and
+            node.func.value.attr == 'request' and
+            node.func.attr == 'urlopen'
+        ):
+            for kwarg in node.keywords:
+                if (
+                    kwarg.arg == 'timeout' and
+                    isinstance(kwarg.value, ast.Constant) and
+                    kwarg.value.value is not None
+                ):
+                    break
+            else:
+                self.assignments.append((node.lineno, node.col_offset))
         self.generic_visit(node)
 
 
