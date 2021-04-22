@@ -4,7 +4,10 @@
 
 # flake8-timeout
 
-flake8 plugin which checks that a timeout is set in `requests` calls.
+flake8 plugin which checks that a timeout is set in all `requests` and `urllib.request.open` calls.
+
+- For example: `requests.post('https://example.com')` or `urllib.request.open('https://example.com')` will trigger `FTA100`
+- `requests.post('https://example.com', timeout=5)` or `urllib.request.open('https://example.com', timeout=5)` is expected instead
 
 ## installation
 
@@ -16,12 +19,12 @@ flake8 plugin which checks that a timeout is set in `requests` calls.
 | ------ | --------------------------------- |
 | FTA100 | timeout missing for requests call |
 
-
 ## as a pre-commit hook
 
-See pre-commit for instructions
+See [pre-commit](https://pre-commit.com) for instructions
 
-Sample .pre-commit-config.yaml:
+Sample `.pre-commit-config.yaml`:
+
 ```yaml
 -   repo: https://github.com/pycqa/flake8
     rev: 3.9.1
