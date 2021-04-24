@@ -6,7 +6,7 @@
 
 flake8 plugin which checks that a timeout is set in all `requests` and `urllib.request.open` calls.
 
-- For example: `requests.post('https://example.com')` or `urllib.request.open('https://example.com')` will trigger `FTA100`
+- For example: `requests.post('https://example.com')` or `urllib.request.open('https://example.com')` will trigger `TIM100`
 - `requests.post('https://example.com', timeout=5)` or `urllib.request.open('https://example.com', timeout=5)` is expected instead
 
 ## installation
@@ -15,9 +15,9 @@ flake8 plugin which checks that a timeout is set in all `requests` and `urllib.r
 
 ## flake8 code
 
-| Code   | Description                       |
-| ------ | --------------------------------- |
-| FTA100 | timeout missing for requests call |
+| Code   | Description                      |
+| ------ | -------------------------------- |
+| TIM100 | timeout missing for request call |
 
 ## as a pre-commit hook
 

@@ -63,7 +63,7 @@ def test_timout_is_kwarg(s):
 )
 def test_timeout_missing(s):
     msg, = results(s)
-    assert msg == '1:4: FTA100 request call has no timeout'
+    assert msg == '1:4: TIM100 request call has no timeout'
 
 
 @pytest.mark.parametrize(
@@ -75,7 +75,7 @@ def test_timeout_missing(s):
 )
 def test_call_as_kwarg(s):
     msg, = results(s)
-    assert msg == '1:12: FTA100 request call has no timeout'
+    assert msg == '1:12: TIM100 request call has no timeout'
 
 
 @pytest.mark.parametrize(
@@ -87,7 +87,7 @@ def test_call_as_kwarg(s):
 )
 def test_call_as_arg(s):
     msg, = results(s)
-    assert msg == '1:12: FTA100 request call has no timeout'
+    assert msg == '1:12: TIM100 request call has no timeout'
 
 
 @pytest.mark.parametrize(
@@ -99,7 +99,7 @@ def test_call_as_arg(s):
 )
 def test_call_as_arg_no_assing(s):
     msg, = results(s)
-    assert msg == '1:8: FTA100 request call has no timeout'
+    assert msg == '1:8: TIM100 request call has no timeout'
 
 
 @pytest.mark.parametrize(
@@ -112,4 +112,4 @@ def test_call_as_arg_no_assing(s):
 def test_call_as_function_argument_default(s):
     s = 'def foo(bar=requests.get("https://example.com")):\n    ...'
     msg, = results(s)
-    assert msg == '1:12: FTA100 request call has no timeout'
+    assert msg == '1:12: TIM100 request call has no timeout'

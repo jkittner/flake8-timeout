@@ -6,7 +6,7 @@ from typing import List
 from typing import Tuple
 from typing import Type
 
-MSG = 'FTA100 request call has no timeout'
+MSG = 'TIM100 request call has no timeout'
 
 METHODS = [
     'request', 'get', 'head', 'post',
