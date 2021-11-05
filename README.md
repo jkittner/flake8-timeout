@@ -27,7 +27,7 @@ Sample `.pre-commit-config.yaml`:
 
 ```yaml
 -   repo: https://github.com/pycqa/flake8
-    rev: 3.9.1
+    rev: 4.0.1
     hooks:
     -   id: flake8
         additional_dependencies: [flake8-timeout==0.2.0]
