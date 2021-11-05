@@ -50,6 +50,11 @@ def test_timout_is_kwarg(s):
     assert not results(s)
 
 
+def test_timout_is_arg():
+    s = 'a = urllib.request.urlopen("https://example.com", None, 5, arg="t")'
+    assert not results(s)
+
+
 @pytest.mark.parametrize(
     's',
     (
@@ -81,13 +86,13 @@ def test_call_as_kwarg(s):
 @pytest.mark.parametrize(
     's',
     (
-        'a = foo(bar=requests.get("https://example.com"))',
-        'a = foo(bar=urllib.request.urlopen("https://example.com"))',
+        'a = foo(requests.get("https://example.com"))',
+        'a = foo(urllib.request.urlopen("https://example.com"))',
     ),
 )
 def test_call_as_arg(s):
     msg, = results(s)
-    assert msg == '1:12: TIM100 request call has no timeout'
+    assert msg == '1:8: TIM100 request call has no timeout'
 
 
 @pytest.mark.parametrize(
@@ -97,7 +102,7 @@ def test_call_as_arg(s):
         'foo(bar=urllib.request.urlopen("https://example.com"))',
     ),
 )
-def test_call_as_arg_no_assing(s):
+def test_call_as_kwarg_no_assing(s):
     msg, = results(s)
     assert msg == '1:8: TIM100 request call has no timeout'
 

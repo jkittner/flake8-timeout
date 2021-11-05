@@ -52,7 +52,11 @@ class Visitor(ast.NodeVisitor):
                 ):
                     break
             else:
-                self.assignments.append((node.lineno, node.col_offset))
+                # check if it was passed as a positional argument instead
+                # args are: (url, data=None, [timeout, ]*, cafile=None ...
+                if len(node.args) < 3:
+                    self.assignments.append((node.lineno, node.col_offset))
+
         self.generic_visit(node)
 
 
