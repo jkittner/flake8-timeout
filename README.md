@@ -30,5 +30,5 @@ Sample `.pre-commit-config.yaml`:
     rev: 4.0.1
     hooks:
     -   id: flake8
-        additional_dependencies: [flake8-timeout==0.2.0]
+        additional_dependencies: [flake8-timeout==0.3.0]
 ```
