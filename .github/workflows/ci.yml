@@ -29,9 +29,3 @@ jobs:
           coverage erase
           coverage run -m pytest -vv tests/
           coverage report
-          coverage xml
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
-      with:
-        file: ./coverage.xml
-        fail_ci_if_error: true

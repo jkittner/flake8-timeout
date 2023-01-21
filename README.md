@@ -1,6 +1,5 @@
 [![ci](https://github.com/jkittner/flake8-timeout/workflows/ci/badge.svg)](https://github.com/jkittner/flake8-timeout/actions?query=workflow%3Aci)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/jkittner/flake8-timeout/master.svg)](https://results.pre-commit.ci/latest/github/jkittner/flake8-timeout/master)
-[![codecov](https://codecov.io/gh/jkittner/flake8-timeout/branch/master/graph/badge.svg)](https://codecov.io/gh/jkittner/flake8-timeout)
 
 # flake8-timeout
 
