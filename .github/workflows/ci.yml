@@ -10,28 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.8, 3.9, '3.10']
+        python-version: [3.8, 3.9, '3.10', '3.11']
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
     - name: install dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install -r requirements-dev.txt
-    - name: test installing
-      run: |
-        python -m pip install .
-    - name: run tests
-      run: |
-          coverage erase
-          coverage run -m pytest -vv tests/
-          coverage report
-          coverage xml
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
-      with:
-        file: ./coverage.xml
-        fail_ci_if_error: true
+        python -m pip install --upgrade tox
+    - name: run
+      run: tox -e py
