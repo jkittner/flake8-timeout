@@ -18,8 +18,8 @@ repos:
     rev: 7.3.0
     hooks:
     -   id: flake8
-        additional_dependencies: [flake8-typing-imports==1.14.0]
-        args: [--min-python-version=3.9]
+        additional_dependencies: [flake8-typing-imports==1.17.0]
+        args: [--min-python-version=3.10]
 -   repo: https://github.com/hhatto/autopep8
     rev: v2.3.2
     hooks:
@@ -36,12 +36,12 @@ repos:
     rev: v3.21.2
     hooks:
     -   id: pyupgrade
-        args: [--py39-plus]
+        args: [--py310-plus]
 -   repo: https://github.com/asottile/setup-cfg-fmt
-    rev: v3.1.0
+    rev: v3.2.0
     hooks:
     -   id: setup-cfg-fmt
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.19.0
+    rev: v1.19.1
     hooks:
     -   id: mypy
