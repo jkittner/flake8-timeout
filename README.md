@@ -3,14 +3,15 @@
 
 # flake8-timeout
 
-flake8 plugin which checks that a timeout is set in all `requests` and `urllib.request.open` calls.
+A flake8 plugin that checks for missing `timeout` parameters in network calls.
 
-- For example: `requests.post('https://example.com')` or `urllib.request.open('https://example.com')` will trigger `TIM100`
-- `requests.post('https://example.com', timeout=5)` or `urllib.request.open('https://example.com', timeout=5)` is expected instead
+By default, the plugin checks common HTTP libraries but can be configured to track any function that accepts a timeout parameter.
 
 ## installation
 
-`pip install flake8-timeout`
+```bash
+pip install flake8-timeout
+```
 
 ## flake8 code
 
@@ -18,7 +19,23 @@ flake8 plugin which checks that a timeout is set in all `requests` and `urllib.r
 | ------ | -------------------------------- |
 | TIM100 | timeout missing for request call |
 
-## as a pre-commit hook
+## default tracked functions
+
+The plugin tracks these functions by default:
+
+- `requests.get`
+- `requests.post`
+- `requests.put`
+- `requests.delete`
+- `requests.head`
+- `requests.patch`
+- `requests.options`
+- `requests.request`
+- `urllib.request.urlopen` (timeout at positional index 2)
+
+## configuration
+
+### as a pre-commit hook
 
 See [pre-commit](https://pre-commit.com) for instructions
 
@@ -26,8 +43,67 @@ Sample `.pre-commit-config.yaml`:
 
 ```yaml
 -   repo: https://github.com/pycqa/flake8
-    rev: 4.0.1
+    rev: 7.0.0
     hooks:
     -   id: flake8
-        additional_dependencies: [flake8-timeout==0.3.0]
+        additional_dependencies: [flake8-timeout==2.0.0]
+```
+
+### extending the defaults
+
+Use `--timeout-extend-funcs` to add custom functions while keeping the defaults:
+
+**Command line:**
+```bash
+flake8 --timeout-extend-funcs=my_http_lib.request,custom.api.call:1
+```
+
+**Pre-commit:**
+```yaml
+-   repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+    -   id: flake8
+        additional_dependencies: [flake8-timeout==2.0.0]
+        args: [--timeout-extend-funcs=my_http_lib.request,custom.api.call:1]
+```
+
+This will check the defaults plus your custom functions.
+
+### overriding the defaults
+
+Use `--timeout-funcs` to replace the defaults entirely:
+
+**Command line:**
+```bash
+flake8 --timeout-funcs=custom.http.get,custom.http.post:2
+```
+
+**Pre-commit:**
+```yaml
+-   repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+    -   id: flake8
+        additional_dependencies: [flake8-timeout==2.0.0]
+        args: [--timeout-funcs=custom.http.get,custom.http.post:2]
+```
+
+This will only check the functions you specify, ignoring the defaults.
+
+### positional timeout arguments
+
+Some functions accept timeout as a positional argument. Specify the 0-based index after a colon:
+
+```
+my_lib.fetch:2    # timeout is at index 2 (3rd argument)
+other.call:0      # timeout is at index 0 (1st argument)
+```
+
+Example with positional timeout:
+
+```python
+# my_lib.fetch(url, data, timeout)
+my_lib.fetch('https://api.example.com', None, 30)  # OK - timeout at index 2
+my_lib.fetch('https://api.example.com', None)      # TIM100 - missing timeout
 ```
