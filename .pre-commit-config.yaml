@@ -24,6 +24,10 @@ repos:
     rev: v2.3.2
     hooks:
     -   id: autopep8
+-   repo: https://github.com/jkittner/double-indent
+    rev: 0.1.5
+    hooks:
+    -    id: double-indent
 -   repo: https://github.com/asottile/reorder-python-imports
     rev: v3.16.0
     hooks:
