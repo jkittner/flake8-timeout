@@ -5,7 +5,9 @@
 
 A flake8 plugin that checks for missing `timeout` parameters in network calls.
 
-By default, the plugin checks common HTTP libraries but can be configured to track any function that accepts a timeout parameter.
+[requests](https://requests.readthedocs.io/en/latest/api/#requests.Session.request) and [urllib.request.urlopen](https://docs.python.org/3/library/urllib.request.html#urllib.request.urlopen) do not set timeouts by default unlike [httpx](https://www.python-httpx.org/advanced/timeouts/) and [aiohttp](https://docs.aiohttp.org/en/stable/client_quickstart.html#timeouts).
+
+flake8-timeout checks `requests` and `urllib.request.urlopen` calls by default but can be configured to track any function that accepts a timeout parameter.
 
 ## installation
 
